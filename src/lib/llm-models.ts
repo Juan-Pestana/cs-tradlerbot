@@ -9,3 +9,12 @@ export const nonStreamingModel = new ChatOpenAI({
   temperature: 0,
   openAIApiKey: process.env.OPENAI_API_KEY,
 })
+
+export const streamingModel = new ChatOpenAI({
+  modelName: 'gpt-4',
+  streaming: true,
+  verbose: true,
+  temperature: 0.2,
+  openAIApiKey: process.env.OPENAI_API_KEY,
+  // callbackManager: CallbackManager.fromHandlers(handlers),
+})
