@@ -15,7 +15,8 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Message } from 'ai/react'
-//import ReactMarkdown from 'react-markdown'
+import Image from 'next/image'
+import ReactMarkdown from 'react-markdown'
 import { formattedText } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
@@ -49,7 +50,7 @@ export function ChatLine({
   if (!content) {
     return null
   }
-  //const formattedMessage = convertNewLines(content)
+  const formattedMessage = convertNewLines(content)
 
   return (
     <div className="my-4">
@@ -68,9 +69,11 @@ export function ChatLine({
           >
             {role == 'assistant' ? (
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   className="w-14 h-14 rounded-full"
-                  src="https://media.licdn.com/dms/image/C4D03AQFCoZ-hb_OVnA/profile-displayphoto-shrink_800_800/0/1628612939050?e=1714003200&v=beta&t=7aPTH4X5ia5EWkAjHmAX1zWTp0g2y0PNrrLXGIgZTDM"
+                  src="/irabot.png"
+                  width={50}
+                  height={50}
                   alt="Rounded avatar"
                 />{' '}
                 IraBot
@@ -81,7 +84,14 @@ export function ChatLine({
           </CardTitle>
         </CardHeader>
         <CardContent className="text-lg">
-          <div>{content}</div>
+          <div
+            className="prose dark:prose-invert
+  prose-h1:font-bold prose-h1:text-xl
+  prose-a:text-blue-600 prose-p:text-justify prose-img:rounded-xl
+  prose-headings:underline"
+          >
+            <ReactMarkdown className="">{content}</ReactMarkdown>
+          </div>
         </CardContent>
         <CardFooter>
           {/* <CardDescription className="w-full">
