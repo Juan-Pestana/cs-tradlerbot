@@ -6,6 +6,8 @@ import { ChatLine } from './Chat-bubble'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Message, useChat } from 'ai/react'
+import { Divide } from 'lucide-react'
+import { Spinner } from './ui/spinner'
 
 export function Chat() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -29,6 +31,11 @@ export function Chat() {
             //sources={message.role !== 'assistant' ? [] : sources}
           />
         ))}
+        {isLoading && (
+          <div className="w-full flex items-center justify-center">
+            <Spinner size="medium" show={isLoading} />
+          </div>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="p-4 flex clear-both">
