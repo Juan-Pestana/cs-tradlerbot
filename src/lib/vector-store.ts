@@ -15,6 +15,7 @@ export async function embedAndStoreDocs(
 
     await PineconeStore.fromDocuments(docs, embeddings, {
       pineconeIndex: index,
+      namespace: 'managers',
       textKey: 'text',
     })
   } catch (error) {
@@ -30,6 +31,8 @@ export async function getVectorStore(client: Pinecone) {
 
     const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
       pineconeIndex: index,
+      //OJO AQUÍ ES DONDE DEFINES EL NAMESPACE AL QUE ATACARÁ LA PREGUNTA.
+      namespace: 'managers',
       textKey: 'text',
     })
     return vectorStore
