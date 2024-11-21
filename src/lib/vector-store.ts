@@ -25,7 +25,10 @@ export async function embedAndStoreDocs(
   }
 }
 
-export async function getVectorStore(client: Pinecone) {
+export async function getVectorStore(
+  client: Pinecone,
+  pathname: string | undefined
+) {
   try {
     const embeddings = new OpenAIEmbeddings()
     const index = client.index(process.env.PINECONE_INDEX_NAME as string)
@@ -33,7 +36,7 @@ export async function getVectorStore(client: Pinecone) {
     const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
       pineconeIndex: index,
       //OJO AQUÍ ES DONDE DEFINES EL NAMESPACE AL QUE ATACARÁ LA PREGUNTA.
-      //namespace: 'managers',
+      namespace: pathname == 'manager' ? 'managers' : undefined,
       textKey: 'text',
     })
     return vectorStore

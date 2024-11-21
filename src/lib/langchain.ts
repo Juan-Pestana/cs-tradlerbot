@@ -13,13 +13,18 @@ import { formatDocumentsAsString } from 'langchain/util/document'
 import { AIMessage, HumanMessage } from '@langchain/core/messages'
 
 type callChainArgs = {
+  pathname: string | undefined
   question: string
   chat_history: (HumanMessage | AIMessage)[]
 }
 
-export async function callChain({ question, chat_history }: callChainArgs) {
+export async function callChain({
+  question,
+  chat_history,
+  pathname,
+}: callChainArgs) {
   const pineconeClient = await getPineconeClient()
-  const vectorStore = await getVectorStore(pineconeClient)
+  const vectorStore = await getVectorStore(pineconeClient, pathname)
   const retriever = vectorStore.asRetriever()
   try {
     //CHAIN LOGIC GOES HERE

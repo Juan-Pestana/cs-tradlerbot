@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { callChain } from '@/lib/langchain'
 import { LangChainAdapter, StreamingTextResponse } from 'ai'
 import { Message } from 'ai'
-
+import { headers } from 'next/headers'
 import { AIMessage, HumanMessage } from '@langchain/core/messages'
+import path from 'path'
 
 //OJO ya no se si podemos utilizar edge
 export const runtime = 'edge'
@@ -14,6 +15,11 @@ const formatMessage = (message: Message) =>
     : new AIMessage(message.content)
 
 export async function POST(req: NextRequest) {
+  const headersList = await headers()
+  const referer = headersList.get('referer')
+  const pathArr = referer?.split('/')
+  const pathname = pathArr ? pathArr[pathArr?.length - 1] : undefined
+
   const body = await req.json()
 
   const messages: Message[] = body.messages ?? []
@@ -29,14 +35,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const aiStream = await callChain({
+      pathname,
       question,
       chat_history: formattedPreviousMessages,
     })
-
     //const stream = new ReadableStream()
-
     //const aiStream = LangChainAdapter.toAIStream(stream)
-
     return new StreamingTextResponse(aiStream)
   } catch (error) {
     console.error('Internal Server Error', error)

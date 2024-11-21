@@ -8,8 +8,11 @@ import { Input } from './ui/input'
 import { Message, useChat } from 'ai/react'
 import { Divide } from 'lucide-react'
 import { Spinner } from './ui/spinner'
+import { useParams } from 'next/navigation'
 
 export function Chat() {
+  const params = useParams<{ tag: string; item: string }>()
+
   const containerRef = useRef<HTMLDivElement | null>(null)
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
