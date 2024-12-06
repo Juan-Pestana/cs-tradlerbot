@@ -8,12 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
+
 import { Message } from 'ai/react'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'

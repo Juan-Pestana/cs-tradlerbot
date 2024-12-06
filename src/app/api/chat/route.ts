@@ -33,14 +33,15 @@ export async function POST(req: NextRequest) {
     })
   }
 
+  console.log(messages)
+
   try {
     const aiStream = await callChain({
       pathname,
       question,
       chat_history: formattedPreviousMessages,
     })
-    //const stream = new ReadableStream()
-    //const aiStream = LangChainAdapter.toAIStream(stream)
+
     return new StreamingTextResponse(aiStream)
   } catch (error) {
     console.error('Internal Server Error', error)
