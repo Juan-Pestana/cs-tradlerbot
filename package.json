@@ -10,7 +10,7 @@
     "prepare:data": "tsx -r dotenv/config ./src/scripts/pinecone-embed-docs.ts"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^0.0.14",
+    "@ai-sdk/openai": "^1.0.7",
     "@langchain/community": "^0.2.2",
     "@langchain/openai": "^0.0.33",
     "@langchain/pinecone": "^0.0.6",
@@ -19,7 +19,7 @@
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
-    "ai": "^3.1.13",
+    "ai": "^4.0.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",

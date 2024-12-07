@@ -6,7 +6,7 @@ import {
   RunnablePassthrough,
 } from '@langchain/core/runnables'
 import { StringOutputParser } from '@langchain/core/output_parsers'
-import { LangChainAdapter, StreamingTextResponse } from 'ai'
+import { LangChainAdapter } from 'ai'
 import { contextualizeQPrompt, qaPrompt } from '@/lib/prompt-templates'
 //import {nonStreamingModel} from '@/lib/llm-models'
 import { formatDocumentsAsString } from 'langchain/util/document'
@@ -57,11 +57,11 @@ export async function callChain({
       streamingModel,
     ])
 
-    const stream = await ragChain.stream({ question, chat_history })
+    return await ragChain.stream({ question, chat_history })
 
-    return LangChainAdapter.toAIStream(stream)
+    //return stream
   } catch (error) {
-    console.error(error)
+    //console.error(error)
     return new ReadableStream()
   }
 }

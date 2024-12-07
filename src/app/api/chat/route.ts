@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { callChain } from '@/lib/langchain'
-import { LangChainAdapter, StreamingTextResponse } from 'ai'
+import { LangChainAdapter } from 'ai'
 import { Message } from 'ai'
 import { headers } from 'next/headers'
 import { AIMessage, HumanMessage } from '@langchain/core/messages'
-import path from 'path'
 
 //OJO ya no se si podemos utilizar edge
 export const runtime = 'edge'
@@ -33,8 +32,6 @@ export async function POST(req: NextRequest) {
     })
   }
 
-  console.log(messages)
-
   try {
     const aiStream = await callChain({
       pathname,
@@ -42,9 +39,11 @@ export async function POST(req: NextRequest) {
       chat_history: formattedPreviousMessages,
     })
 
-    return new StreamingTextResponse(aiStream)
+    //return new StreamingTextResponse(aiStream)
+
+    return LangChainAdapter.toDataStreamResponse(aiStream)
   } catch (error) {
-    console.error('Internal Server Error', error)
+    //console.error('Internal Server Error', error)
     return NextResponse.json('Error: Something went wrong, try again!', {
       status: 500,
     })
