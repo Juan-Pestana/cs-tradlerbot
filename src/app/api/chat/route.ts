@@ -3,7 +3,9 @@ import { callChain } from '@/lib/langchain'
 import { LangChainAdapter } from 'ai'
 import { Message } from 'ai'
 import { headers } from 'next/headers'
+import { messages } from '@/db/schema/session'
 import { AIMessage, HumanMessage } from '@langchain/core/messages'
+import { db } from '@/db'
 
 //OJO ya no se si podemos utilizar edge
 export const runtime = 'edge'
@@ -14,25 +16,30 @@ const formatMessage = (message: Message) =>
     : new AIMessage(message.content)
 
 export async function POST(req: NextRequest) {
-  const headersList = await headers()
-  const referer = headersList.get('referer')
-  const pathArr = referer?.split('/')
-  const pathname = pathArr ? pathArr[pathArr?.length - 1] : undefined
-
   const body = await req.json()
 
-  const messages: Message[] = body.messages ?? []
+  const pathname = body.userRole
 
-  const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage)
-  const question = messages[messages.length - 1].content
+  let session = body.sessionId
 
-  if (!question) {
-    return NextResponse.json('Error: No question in the request', {
+  const allMessages: Message[] = body.messages ?? []
+
+  const formattedPreviousMessages = allMessages.slice(0, -1).map(formatMessage)
+  const question = allMessages[allMessages.length - 1].content
+
+  if (!question || !session) {
+    return NextResponse.json('Error: No question or session in the request', {
       status: 400,
     })
   }
 
   try {
+    await db.insert(messages).values({
+      content: allMessages[allMessages.length - 1].content,
+      session_id: session,
+      role: allMessages[allMessages.length - 1].role,
+    })
+
     const aiStream = await callChain({
       pathname,
       question,

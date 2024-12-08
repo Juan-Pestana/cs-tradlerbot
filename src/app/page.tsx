@@ -9,16 +9,11 @@ interface PageProps {
 }
 
 export default function Home({ params, searchParams }: PageProps) {
-  const host = headers().get('host')
-
-  console.log(host)
-  console.log(params)
-  console.log(searchParams)
   return (
     <main className="relative flex min-h-screen flex-col px-1 md:container md:px-4">
       <div className="flex flex-1 py-4">
         <div className="w-full">
-          <Chat />
+          <Chat userRole="user" />
         </div>
       </div>
     </main>

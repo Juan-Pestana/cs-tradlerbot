@@ -7,13 +7,50 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { useChat } from 'ai/react'
 import { Spinner } from './ui/spinner'
+import { useSearchParams } from 'next/navigation'
+import { createSession, createMessage } from '@/actions/sessionActions'
 
-export function Chat() {
-  const [sessionID, setSessionId] = useState<string | null>(null)
+interface IchatProps {
+  userRole: string
+}
+
+export function Chat({ userRole }: IchatProps) {
+  const [sessionId, setSessionId] = useState<string>(crypto.randomUUID())
+  const [sessionCreated, setSessionCreated] = useState<boolean>(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const searchParams = useSearchParams()
+
+  const client = searchParams.get('c')!
+  const userId = searchParams.get('u') || 'unknown'
+
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
+      fetch: async (url, options) => {
+        if (!sessionCreated) {
+          const createdSession = await createSession({
+            client,
+            userId,
+            userRole,
+            id: sessionId,
+          })
+          if (createdSession) {
+            setSessionCreated(true)
+          }
+        }
+        const response = await fetch(url, options)
+
+        return response
+      },
+      body: {
+        sessionId,
+        userRole,
+      },
       initialMessages,
+      onFinish: async (message, options) => {
+        if (sessionId) {
+          await createMessage(message, sessionId)
+        }
+      },
     })
 
   useEffect(() => {

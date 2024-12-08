@@ -16,5 +16,4 @@ export const streamingModel = new ChatOpenAI({
   verbose: true,
   temperature: 0.2,
   openAIApiKey: process.env.OPENAI_API_KEY,
-  // callbackManager: CallbackManager.fromHandlers(handlers),
 })
