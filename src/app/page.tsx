@@ -3,6 +3,7 @@ import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { Chat } from '@/components/chat'
 import { headers } from 'next/headers'
 import Header from '@/components/Header'
+import { Suspense } from 'react'
 
 interface PageProps {
   params: { slug: string }
@@ -16,7 +17,9 @@ export default function Home({ params, searchParams }: PageProps) {
       <main className="relative flex min-h-screen flex-col px-1 md:container md:px-4">
         <div className="flex flex-1 py-4">
           <div className="w-full">
-            <Chat userRole="user" />
+            <Suspense fallback={<>Loading...</>}>
+              <Chat userRole="user" />
+            </Suspense>
           </div>
         </div>
       </main>
