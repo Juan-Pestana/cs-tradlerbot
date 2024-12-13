@@ -3,24 +3,12 @@
 import React from 'react'
 import { Search, Calendar } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-
-export interface FilterValues {
-  client: string
-  userId: string
-  startDate: string
-  endDate: string
-}
+import { IfilterValues } from '@/types'
 
 export function ChatFilter() {
   const router = useRouter()
 
-  const handleFilterChange = (filters: {
-    client?: string
-    userId?: string
-    startDate?: string
-    endDate?: string
-    session?: string
-  }) => {
+  const handleFilterChange = (filters: IfilterValues) => {
     const params = new URLSearchParams(window.location.search)
 
     // Update the query params with the new filters

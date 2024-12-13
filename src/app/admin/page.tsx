@@ -1,10 +1,12 @@
-import React, { Suspense, useState } from 'react'
-import { ChatFilter, FilterValues } from '@/components/admin/ChatFilters'
+import React, { Suspense } from 'react'
+import { ChatFilter } from '@/components/admin/ChatFilters'
 import { ChatSessionList } from '@/components/admin/ChatSessionList'
 import { ChatConversation, Message } from '@/components/admin/ChatConversation'
 import { db } from '@/db'
-import { eq, gte, ilike, lte, SQL, and } from 'drizzle-orm'
-import { Session, sessions } from '@/db/schema/session'
+import { eq, gte, lte, SQL, and } from 'drizzle-orm'
+import { sessions } from '@/db/schema/session'
+import { Session } from '@/types'
+import { IfilterValues } from '@/types'
 
 const mockMessages: Message[] = [
   {
@@ -94,7 +96,7 @@ async function getSessionsBy({
   userId,
   startDate,
   endDate,
-}: FilterValues) {
+}: IfilterValues) {
   const filters: SQL[] = []
   if (client) filters.push(eq(sessions.client, client))
   if (userId) filters.push(eq(sessions.userId, userId))
@@ -113,8 +115,6 @@ async function AdminPage({ searchParams }: PageProps) {
     sessionList = await getSessionsBy(searchParams)
   }
 
-  //@ts-ignore
-
   return (
     <section className="min-h-screen bg-gray-100">
       <div className="container mx-auto py-6 px-4">
@@ -123,11 +123,7 @@ async function AdminPage({ searchParams }: PageProps) {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Suspense>
-              <ChatSessionList
-                sessions={sessionList}
-                //@ts-ignore
-                selectedSession={searchParams.session}
-              />
+              <ChatSessionList sessions={sessionList} />
             </Suspense>
 
             <ChatConversation messages={mockMessages} />

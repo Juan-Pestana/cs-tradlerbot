@@ -1,14 +1,8 @@
-import Image from 'next/image'
-import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { Chat } from '@/components/chat'
-import Link from 'next/link'
-import { headers } from 'next/headers'
 import Header from '@/components/Header'
 import { Suspense } from 'react'
 
 export default function ManagerPage() {
-  //const host = headers().get('host')
-
   return (
     <>
       <Header />

@@ -15,7 +15,7 @@ function Header() {
   return (
     <div className="p-4 flex h-14 items-center justify-between supports-backdrop-blur:bg-background">
       <span className="font-bold">TradlerBot </span>
-      <div className="flex gap-3 items-center">
+      {/* <div className="flex gap-3 items-center">
         <Link
           className={slug == '/manager' ? 'font-bold text-lg' : ''}
           href={'/manager'}
@@ -28,7 +28,7 @@ function Header() {
         >
           User
         </Link>
-      </div>
+      </div> */}
       <DarkModeToggle />
     </div>
   )

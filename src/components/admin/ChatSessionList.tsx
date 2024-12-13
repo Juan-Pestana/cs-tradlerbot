@@ -2,26 +2,14 @@
 
 import React from 'react'
 import { MessageSquare, User, Clock } from 'lucide-react'
-import { Session } from '@/db/schema/session'
+import { Session } from '@/types'
 import { useRouter, useSearchParams } from 'next/navigation'
-
-export interface ChatSession {
-  id: string
-  clientName: string
-  userId: string
-  createdAt: string
-  messageCount: number
-}
 
 interface ChatSessionListProps {
   sessions: Session[]
-  selectedSession?: string
 }
 
-export function ChatSessionList({
-  sessions,
-  selectedSession,
-}: ChatSessionListProps) {
+export function ChatSessionList({ sessions }: ChatSessionListProps) {
   const router = useRouter()
   const params = useSearchParams()
 

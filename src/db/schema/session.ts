@@ -1,11 +1,5 @@
-import {
-  InferInsertModel,
-  InferModel,
-  InferSelectModel,
-  relations,
-  sql,
-} from 'drizzle-orm'
-import { sqliteTable, integer, text, primaryKey } from 'drizzle-orm/sqlite-core'
+import { relations, sql } from 'drizzle-orm'
+import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core'
 
 // Conversations table
 export const sessions = sqliteTable('sessions', {
@@ -36,10 +30,3 @@ export const messagesRelations = relations(messages, ({ one }) => ({
     references: [sessions.id],
   }),
 }))
-
-export type Session = InferSelectModel<typeof sessions>
-export type NewSession = InferInsertModel<typeof sessions>
-
-// Infer types for `messages`
-export type Message = InferSelectModel<typeof messages>
-export type NewMessage = InferSelectModel<typeof messages>

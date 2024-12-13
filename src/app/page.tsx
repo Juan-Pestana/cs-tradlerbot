@@ -1,16 +1,8 @@
-import Image from 'next/image'
-import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { Chat } from '@/components/chat'
-import { headers } from 'next/headers'
 import Header from '@/components/Header'
 import { Suspense } from 'react'
 
-interface PageProps {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export default function Home({ params, searchParams }: PageProps) {
+export default function Home() {
   return (
     <>
       <Header />
