@@ -15,7 +15,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className={cn(`min-h-screen bg-background font-sans antialiased`)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
           {props.children}
         </ThemeProvider>
       </body>
