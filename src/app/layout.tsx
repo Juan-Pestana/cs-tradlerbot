@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={cn(`min-h-screen bg-background font-sans antialiased`)}>
+      <body className={cn(`max-h-dvh bg-background font-sans antialiased`)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {props.children}
         </ThemeProvider>

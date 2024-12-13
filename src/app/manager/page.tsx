@@ -6,7 +6,7 @@ export default function ManagerPage() {
   return (
     <>
       <Header />
-      <main className="relative flex min-h-screen flex-col px-1 md:container md:px-4">
+      <main className="relative flex h-auto flex-col px-1 md:container md:px-4">
         <div className="flex flex-1 py-4">
           <div className="w-full">
             <Suspense fallback={<>Loading...</>}>

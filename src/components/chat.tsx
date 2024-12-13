@@ -58,7 +58,7 @@ export function Chat({ userRole }: IchatProps) {
   }, [messages])
 
   return (
-    <div className="rounded-2xl border h-[75vh] flex flex-col justify-between">
+    <div className="rounded-2xl border h-[80dvh] flex flex-col justify-between">
       <div className="p-6 overflow-auto" ref={containerRef}>
         {messages.map((message, index) => (
           <ChatLine
