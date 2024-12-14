@@ -12,6 +12,7 @@ export interface ChatGPTMessage {
 export interface IfilterValues {
   client?: string
   userId?: string
+  role?: string
   startDate?: string
   endDate?: string
 }
