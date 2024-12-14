@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project is an AI-powered chatbot designed to serve as a customer support agent for the Tradler platform. The chatbot is built using modern technologies and tools to ensure an efficient and user-friendly experience for both users and managers. This is my first project deployed at work, and I aim to make it accessible for the team to understand its features, installation process, and usage.
+This project is an AI-powered chatbot designed to serve as a customer support agent for the Tradler platform. The chatbot is built using modern technologies and tools to ensure an efficient and user-friendly experience for both users and managers.
 
 ---
 
