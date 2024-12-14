@@ -15,7 +15,8 @@ export async function embedAndStoreDocs(
 
     await PineconeStore.fromDocuments(docs, embeddings, {
       pineconeIndex: index,
-      //aquí indicamos el Namespace que queremos crear o actualizar.
+      //indicate the namespace you want to create or update,
+      //leave blank for users knowledge base as this is the default.
       namespace: 'managers',
       textKey: 'text',
     })
