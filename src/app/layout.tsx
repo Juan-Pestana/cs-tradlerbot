@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from 'next-themes'
-import Header from '@/components/Header'
+import Providers from './providers'
 
 export const metadata: Metadata = {
   title: 'Tradler Customer Support',
@@ -14,9 +14,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={cn(`max-h-dvh bg-background font-sans antialiased`)}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {props.children}
-        </ThemeProvider>
+        <Providers>{props.children}</Providers>
       </body>
     </html>
   )
