@@ -17,11 +17,13 @@ export const sessionRelations = relations(sessions, ({ many }) => ({
 
 // Messages table
 export const messages = sqliteTable('messages', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
+  id: integer('id').primaryKey({ autoIncrement: true }).notNull(),
   session_id: text('session_id').notNull(),
   role: text('role').notNull(), // 'user' or 'ai'
   content: text('content').notNull(),
-  timestamp: text('timestamp').default(sql`(CURRENT_TIME)`), //esto está mal hay que meter date y time
+  timestamp: text('timestamp')
+    .default(sql`(CURRENT_TIME)`)
+    .notNull(), //esto está mal hay que meter date y time
 })
 
 export const messagesRelations = relations(messages, ({ one }) => ({

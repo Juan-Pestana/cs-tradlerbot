@@ -20,7 +20,7 @@ export function Chat({ userRole }: IchatProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const searchParams = useSearchParams()
 
-  const client = searchParams.get('c')!
+  const client = searchParams.get('c') || 'Default'
   const userId = searchParams.get('u') || 'unknown'
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
