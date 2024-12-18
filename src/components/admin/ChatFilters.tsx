@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation'
 import { IfilterValues } from '@/types'
 import { CLIENTS } from '@/lib/constants'
 
+type filters = Omit<IfilterValues, 'pageParam'>
+
 export function ChatFilter() {
   const router = useRouter()
 
-  const handleFilterChange = (filters: IfilterValues) => {
+  const handleFilterChange = (filters: filters) => {
     const params = new URLSearchParams(window.location.search)
 
     // Update the query params with the new filters
