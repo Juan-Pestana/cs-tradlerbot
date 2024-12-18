@@ -8,6 +8,8 @@ import { headers } from 'next/headers'
 import { getQueryClient } from '@/lib/getQueryClient'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
+import { Divide, Loader2 } from 'lucide-react'
+import Loading from './loading'
 
 interface PageProps {
   searchParams: { [key: string]: string | undefined }
@@ -15,21 +17,21 @@ interface PageProps {
 
 async function AdminPage({ searchParams }: PageProps) {
   //little hack to prevent nextjs.14 weird caching behavior TODO upgrade to nextjs.15
-  const header = headers()
+
+  let currentSession = ''
+
+  if (searchParams.session) {
+    currentSession = searchParams.session
+    delete searchParams.session
+  }
 
   const queryClient = getQueryClient()
   await queryClient.prefetchInfiniteQuery({
     queryKey: ['sessions', searchParams], // Include params in the query key for caching
     queryFn: ({ pageParam = 1 }) =>
-      getSessionsBy({ pageParam, ...searchParams }), // Pass params to `getPosts`
+      getSessionsBy({ pageParam, ...searchParams }),
     initialPageParam: 1,
   })
-
-  // let sessionList: Session[] | undefined = []
-  // if (searchParams) {
-  //   //@ts-ignore
-  //   sessionList = await getSessionsBy(searchParams)
-  // }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
@@ -42,13 +44,13 @@ async function AdminPage({ searchParams }: PageProps) {
               <Suspense>
                 <ChatSessionList
                   params={searchParams}
-                  currentSession={searchParams.session}
+                  currentSession={currentSession}
                 />
               </Suspense>
-              <Suspense>
+              <Suspense fallback={<Loading />}>
                 <ChatConversation
                   //@ts-ignore
-                  sessionId={searchParams.session}
+                  sessionId={currentSession}
                 />
               </Suspense>
             </div>

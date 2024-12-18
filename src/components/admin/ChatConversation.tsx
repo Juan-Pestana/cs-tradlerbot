@@ -12,14 +12,7 @@ interface ChatConversationProps {
 }
 
 export async function ChatConversation({ sessionId }: ChatConversationProps) {
-  let messagesList: Message[] = []
-  // console.log(sessionId)
-  if (sessionId) {
-    messagesList = await db
-      .select()
-      .from(messages)
-      .where(eq(messages.session_id, sessionId))
-  } else {
+  if (!sessionId) {
     return (
       <div className="bg-white rounded-lg shadow-sm col-span-2">
         <div className="p-4 border-b border-gray-200">
@@ -31,6 +24,11 @@ export async function ChatConversation({ sessionId }: ChatConversationProps) {
       </div>
     )
   }
+
+  const messagesList = await db
+    .select()
+    .from(messages)
+    .where(eq(messages.session_id, sessionId))
 
   return (
     <div className="bg-white rounded-lg shadow-sm col-span-2 ">

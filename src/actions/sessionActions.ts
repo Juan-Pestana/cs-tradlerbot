@@ -32,8 +32,11 @@ export async function createSession({
   return res[0].id
 }
 
-export const createMessage = (message: IcreateMessage, session: string) => {
-  const res = db
+export const createMessage = async (
+  message: IcreateMessage,
+  session: string
+) => {
+  const res = await db
     .insert(messages)
     .values({
       content: message.content,
@@ -45,7 +48,7 @@ export const createMessage = (message: IcreateMessage, session: string) => {
   return res
 }
 
-const NUM_OF_SESSIONS = 3
+const NUM_OF_SESSIONS = 15
 
 export async function getSessionsBy({
   client,
@@ -77,5 +80,3 @@ export async function getSessionsBy({
     hasNextPage,
   }
 }
-
-export const getPaginatedSessions = () => {}
